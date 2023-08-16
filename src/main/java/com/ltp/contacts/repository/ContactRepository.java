@@ -11,12 +11,7 @@ import com.ltp.contacts.pojo.Contact;
 @Repository
 public class ContactRepository {
     
-    private final List<Contact> contacts = Arrays.asList(
-            new Contact("11", "Primeira Pessoa", "000001"),
-            new Contact("22", "Segunda Pessoa", "000002"),
-            new Contact("33", "Terceira Pessoa", "000003"),
-            new Contact("44", "Quarta Pessoa", "000004")
-    );
+    private final List<Contact> contacts = new ArrayList<>();
 
     public List<Contact> getContacts() {
         return contacts;

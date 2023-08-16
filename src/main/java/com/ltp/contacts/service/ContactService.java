@@ -5,6 +5,7 @@ import com.ltp.contacts.pojo.Contact;
 import java.util.List;
 
 public interface ContactService {
-    public Contact getContactById(String id);
-    public List<Contact> listContacts();
+    Contact getContactById(String id);
+    List<Contact> listContacts();
+    void createContact(Contact contact);
 }

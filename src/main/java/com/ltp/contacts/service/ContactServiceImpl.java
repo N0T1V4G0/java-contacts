@@ -30,4 +30,9 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> listContacts() {
         return contactRepository.getContacts();
     }
+
+    @Override
+    public void createContact(Contact contact) {
+        contactRepository.saveContact(contact);
+    }
 }

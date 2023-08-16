@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ltp.contacts.service.ContactService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,11 @@ public class ContactController {
     @GetMapping("/contact")
     private ResponseEntity<List<Contact>> listContacts() {
         return new ResponseEntity<List<Contact>>(contactService.listContacts(), HttpStatus.OK);
+    }
+
+    @PostMapping("/contact")
+    private ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
+        contactService.createContact(contact);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
