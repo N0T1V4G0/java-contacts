@@ -12,4 +12,6 @@ public interface ContactService {
   void createContact(Contact contact);
 
   Contact updateContact(Contact contact, String id);
+
+  void deleteContact(String id);
 }

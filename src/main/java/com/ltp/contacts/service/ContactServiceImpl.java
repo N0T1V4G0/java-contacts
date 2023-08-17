@@ -44,4 +44,9 @@ public class ContactServiceImpl implements ContactService {
     this.contactRepository.updateContact(index, c1);
     return this.getContactById(id);
   }
+
+  @Override
+  public void deleteContact(String id) {
+    this.contactRepository.deleteContact(this.findIndexById(id));
+  }
 }
