@@ -12,24 +12,30 @@ import java.util.List;
 
 @RestController
 public class ContactController {
-    
-    @Autowired
-    private ContactService contactService;
 
-    @GetMapping("/contact/{id}")
-    private ResponseEntity<Contact> getContactById(@PathVariable String id) {
-        Contact c = contactService.getContactById(id);
-        return new ResponseEntity<Contact>(c, HttpStatus.OK);
-    }
+  @Autowired private ContactService contactService;
 
-    @GetMapping("/contact")
-    private ResponseEntity<List<Contact>> listContacts() {
-        return new ResponseEntity<List<Contact>>(contactService.listContacts(), HttpStatus.OK);
-    }
+  @GetMapping("/contact/{id}")
+  private ResponseEntity<Contact> getContactById(@PathVariable String id) {
+    Contact c = contactService.getContactById(id);
+    return new ResponseEntity<Contact>(c, HttpStatus.OK);
+  }
 
-    @PostMapping("/contact")
-    private ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
-        contactService.createContact(contact);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @GetMapping("/contact")
+  private ResponseEntity<List<Contact>> listContacts() {
+    return new ResponseEntity<List<Contact>>(contactService.listContacts(), HttpStatus.OK);
+  }
+
+  @PostMapping("/contact")
+  private ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
+    contactService.createContact(contact);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
+
+  @PutMapping("/contact/{id}")
+  private ResponseEntity<HttpStatus> updateContact(
+      @RequestBody Contact contact, @PathVariable String id) {
+    contactService.updateContact(contact, id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }
