@@ -1,5 +1,6 @@
 package com.ltp.contacts.web;
 
+import com.ltp.contacts.exception.NotFoundException;
 import com.ltp.contacts.pojo.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,13 +18,17 @@ public class ContactController {
 
   @GetMapping("/contact/{id}")
   private ResponseEntity<Contact> getContactById(@PathVariable String id) {
-    Contact c = contactService.getContactById(id);
-    return new ResponseEntity<Contact>(c, HttpStatus.OK);
+    try {
+      Contact c = contactService.getContactById(id);
+      return new ResponseEntity<>(c, HttpStatus.OK);
+    } catch (NotFoundException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   @GetMapping("/contact")
   private ResponseEntity<List<Contact>> listContacts() {
-    return new ResponseEntity<List<Contact>>(contactService.listContacts(), HttpStatus.OK);
+    return new ResponseEntity<>(contactService.listContacts(), HttpStatus.OK);
   }
 
   @PostMapping("/contact")
@@ -35,13 +40,21 @@ public class ContactController {
   @PutMapping("/contact/{id}")
   private ResponseEntity<Contact> updateContact(
       @RequestBody Contact contact, @PathVariable String id) {
-    Contact updatedContact = contactService.updateContact(contact, id);
-    return new ResponseEntity<>(updatedContact, HttpStatus.OK);
+    try {
+      Contact updatedContact = contactService.updateContact(contact, id);
+      return new ResponseEntity<>(updatedContact, HttpStatus.OK);
+    } catch (NotFoundException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   @DeleteMapping("contact/{id}")
   private ResponseEntity<HttpStatus> deleteContact(@PathVariable String id) {
-    contactService.deleteContact(id);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    try {
+      contactService.deleteContact(id);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (NotFoundException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 }
